@@ -1,0 +1,3 @@
+[workspace]
+members = ["using-typenum", "typenum2"]
+exclude = [".presentation-buddy/yaml-to-json/"]

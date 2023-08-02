@@ -1,0 +1,29 @@
+- type: openFile
+  path: using-typenum/Cargo.toml
+- type: goto
+  line: 10
+- type: typeText
+  text:
+    - 'typenum = "1.16"'
+- type: wait
+  delay: manual
+  save: true
+
+- type: openFile
+  path: using-typenum/src/lib.rs
+- type: select
+  line: 20
+- type: typeText
+  text:
+    - use typenum::*;
+- type: wait
+  delay: 1000
+- type: typeText
+  text:
+    - ""
+    - type A = U2;
+    - type B = U3;
+    - type C = <A as std::ops::Add<B>>::Output;
+- type: wait
+  delay: manual
+  save: true
