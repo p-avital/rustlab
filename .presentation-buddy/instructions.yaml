@@ -6,6 +6,7 @@
 
 - type: typeText
   text:
+    -
     - pub struct Zero;
 - type: wait
   delay: manual
@@ -13,7 +14,6 @@
 
 - type: typeText
   text:
-    -
     - pub struct Inc<N>(N);
     -
 - type: wait
@@ -55,10 +55,10 @@
   delay: 10
   save: true
 - type: goto
-  line: 12
+  line: 15
   column: 19
 - type: select
-  line: 12
+  line: 15
   column: 21
 - type: wait
   delay: manual
@@ -68,10 +68,10 @@
   text:
     - "Zero"
 - type: goto
-  line: 15
+  line: 18
   column: 19
 - type: select
-  line: 15
+  line: 18
   column: 21
 - type: wait
   delay: manual
@@ -81,10 +81,10 @@
   text:
     - Inc<T>
 - type: goto
-  line: 18
+  line: 21
   column: 19
 - type: select
-  line: 18
+  line: 21
   column: 21
 - type: typeText
   text:
@@ -105,7 +105,7 @@
   save: true
 
 - type: goto
-  line: 21
+  line: 24
   column: 34
 - type: typeText
   text:
@@ -113,15 +113,6 @@
 - type: goto
   line: 100
   column: 1
-- type: wait
-  delay: manual
-  save: true
-
-- type: typeText
-  text:
-    -
-    - pub struct End;
-    - pub struct List<Head, Tail>(Head, Tail);
 - type: wait
   delay: manual
   save: true
@@ -137,6 +128,8 @@
   delay: manual
   save: true
 
+- type: openFile
+  path: using-typenum/src/lib.rs
 - type: typeText
   text:
     - use typenum::*;
@@ -152,10 +145,10 @@
   save: true
 
 - type: goto
-  line: 8
+  line: 36
   column: 5
 - type: select
-  line: 8
+  line: 36
   column: 7
 - type: typeText
   text:
@@ -165,10 +158,10 @@
   save: true
 
 - type: goto
-  line: 5
+  line: 33
   column: 11
 - type: select
-  line: 5
+  line: 33
   column: 12
 - type: command
   command: "deleteLeft"
@@ -178,3 +171,36 @@
 - type: wait
   delay: manual
   save: true
+
+- type: goto
+  line: 100
+  column: 1
+
+- type: typeText
+  text:
+    -
+    - pub struct B0;
+    - pub struct B1;
+    -
+    - pub trait Boolean {
+    - "    type Not;"
+    - "    type And<B: Boolean>: Boolean;"
+    - "    type Or<B: Boolean>: Boolean;"
+    - "}"
+- type: wait
+  delay: manual
+  save: true
+- type: typeText
+  text:
+    -
+    - impl Boolean for B0 {
+    - "    type Not = B1;"
+    - "    type And<B: Boolean> = B0;"
+    - "    type Or<B: Boolean> = B;"
+    - "}"
+    -
+    - impl Boolean for B1 {
+    - "    type Not = B0;"
+    - "    type And<B: Boolean> = B;"
+    - "    type Or<B: Boolean> = B1;"
+    - "}"
