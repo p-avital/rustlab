@@ -1,0 +1,67 @@
+{
+	// Place your rustlab workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	"Select area": {
+		"scope": "yaml",
+		"prefix": "select",
+		"body": [
+			"- type: goto",
+			"  line: $1",
+			"  column: $2",
+			"- type: select",
+			"  line: $3",
+			"  column: $4",
+		],
+	},
+	"Goto": {
+		"scope": "yaml",
+		"prefix": "goto",
+		"body": [
+			"- type: goto",
+			"  line: $1",
+			"  column: $2",
+		],
+	},
+	"Test": {
+		"scope": "yaml",
+		"prefix": "text",
+		"body": [
+			"- type: typeText",
+			"  text:",
+			"    - $1",
+		],
+	},
+	"Wait": {
+		"scope": "yaml",
+		"prefix": "wait",
+		"body": [
+			"- type: wait",
+			"  delay: ${1:manual}",
+			"  save: true",
+		],
+	},
+	"Split": {
+		"scope": "yaml",
+		"prefix": "split",
+		"body": [
+			"",
+			"${1:- type: wait",
+			"  delay: manual",
+			"  save: true",
+			"",
+			"- type: typeText",
+			"  text:",
+			"    -}",
+		],
+	},
+	"Check Type": {
+		"scope": "rust",
+		"prefix": "checktype",
+		"body": "const ${2:TEST}: $1 = ();"
+	}
+}

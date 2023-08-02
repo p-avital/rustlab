@@ -1,4 +1,108 @@
 - type: openFile
+  path: using-typenum/src/lambda_calc.rs
+- type: goto
+  line: 1
+  column: 1
+
+- type: typeText
+  text:
+    -
+    - "#[derive(Default)]"
+    - pub struct Zero;
+- type: wait
+  delay: manual
+  save: true
+
+- type: typeText
+  text:
+    -
+    - "#[derive(Default)]"
+    - pub struct Inc<N>(N);
+    -
+- type: wait
+  delay: manual
+  save: true
+
+- type: typeText
+  text:
+    -
+    - pub type One = Inc<Zero>;
+- type: wait
+  delay: manual
+  save: true
+
+- type: typeText
+  text:
+    - pub type Two = Inc<One>;
+    -
+- type: wait
+  delay: manual
+  save: true
+
+- type: typeText
+  delay: 2
+  text:
+    -
+    - pub trait Add<T> {type Output;}
+- type: wait
+  delay: manual
+  save: true
+
+- type: typeText
+  text:
+    -
+    - "impl Add<Zero> for Zero {type Output = Zero;}"
+- type: wait
+  delay: manual
+  save: true
+
+- type: typeText
+  text:
+    -
+    - "impl<T> Add<Zero> for Inc<T> {type Output = Inc<T>;}"
+- type: wait
+  delay: manual
+  save: true
+
+- type: typeText
+  text:
+    -
+    - "impl<T> Add<Inc<T>> for Zero {type Output = Inc<T>;}"
+- type: wait
+  delay: manual
+  save: true
+
+- type: typeText
+  text:
+    -
+    - "impl<A, B> Add<Inc<A>> for Inc<B> {type Output = Inc<Inc<<A as Add<B>>::Output>>;}"
+- type: wait
+  delay: manual
+  save: true
+
+- type: goto
+  line: 27
+  column: 34
+- type: typeText
+  text:
+    - " where A: Add<B>"
+- type: goto
+  line: 100
+  column: 1
+- type: wait
+  delay: manual
+  save: true
+
+- type: typeText
+  text:
+    -
+    - pub struct End;
+    - pub struct List<Head, Tail>(Head, Tail);
+- type: wait
+  delay: manual
+  save: true
+
+- type: openFile
   path: using-typenum/Cargo.toml
 - type: goto
   line: 10
@@ -9,21 +113,44 @@
   delay: manual
   save: true
 
-- type: openFile
-  path: using-typenum/src/lib.rs
-- type: select
-  line: 20
 - type: typeText
   text:
     - use typenum::*;
-- type: wait
-  delay: 1000
-- type: typeText
-  text:
     - ""
     - type A = U2;
-    - type B = U3;
-    - type C = <A as std::ops::Add<B>>::Output;
+    - type B = U4;
+    - ""
+    - fn test() {
+    - "  //"
+    - "}"
+- type: wait
+  delay: manual
+  save: true
+
+- type: goto
+  line: 8
+  column: 5
+- type: select
+  line: 8
+  column: 7
+- type: typeText
+  text:
+    - "let hover_me = <A as std::ops::Add<B>>::Output::default();"
+- type: wait
+  delay: manual
+  save: true
+
+- type: goto
+  line: 5
+  column: 11
+- type: select
+  line: 5
+  column: 12
+- type: command
+  command: "deleteLeft"
+- type: typeText
+  text:
+    - "6"
 - type: wait
   delay: manual
   save: true
