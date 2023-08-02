@@ -1,13 +1,11 @@
 - type: openFile
-  path: using-typenum/src/lambda_calc.rs
+  path: using-typenum/src/lib.rs
 - type: goto
-  line: 1
+  line: 100
   column: 1
 
 - type: typeText
   text:
-    -
-    - "#[derive(Default)]"
     - pub struct Zero;
 - type: wait
   delay: manual
@@ -16,7 +14,6 @@
 - type: typeText
   text:
     -
-    - "#[derive(Default)]"
     - pub struct Inc<N>(N);
     -
 - type: wait
@@ -51,23 +48,50 @@
 - type: typeText
   text:
     -
-    - "impl Add<Zero> for Zero {type Output = Zero;}"
+    - "impl Add<Zero> for Zero {type Output = ();}"
+    - "impl<T> Add<Zero> for Inc<T> {type Output = ();}"
+    - "impl<T> Add<Inc<T>> for Zero {type Output = ();}"
+- type: wait
+  delay: 10
+  save: true
+- type: goto
+  line: 12
+  column: 19
+- type: select
+  line: 12
+  column: 21
 - type: wait
   delay: manual
   save: true
 
 - type: typeText
   text:
-    -
-    - "impl<T> Add<Zero> for Inc<T> {type Output = Inc<T>;}"
+    - "Zero"
+- type: goto
+  line: 15
+  column: 19
+- type: select
+  line: 15
+  column: 21
 - type: wait
   delay: manual
   save: true
 
 - type: typeText
   text:
-    -
-    - "impl<T> Add<Inc<T>> for Zero {type Output = Inc<T>;}"
+    - Inc<T>
+- type: goto
+  line: 18
+  column: 19
+- type: select
+  line: 18
+  column: 21
+- type: typeText
+  text:
+    - Inc<T>
+- type: goto
+  line: 100
+  column: 1
 - type: wait
   delay: manual
   save: true
@@ -81,7 +105,7 @@
   save: true
 
 - type: goto
-  line: 27
+  line: 21
   column: 34
 - type: typeText
   text:
