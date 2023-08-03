@@ -9,7 +9,7 @@
     -
     - pub struct Zero;
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: typeText
@@ -17,7 +17,7 @@
     - pub struct Inc<N>(N);
     -
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: typeText
@@ -25,7 +25,7 @@
     -
     - pub type One = Inc<Zero>;
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: typeText
@@ -33,7 +33,7 @@
     - pub type Two = Inc<One>;
     -
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: typeText
@@ -42,7 +42,7 @@
     -
     - pub trait Plus<T> {type Output;}
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: typeText
@@ -61,7 +61,7 @@
   line: 15
   column: 21
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: typeText
@@ -74,7 +74,7 @@
   line: 18
   column: 21
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: typeText
@@ -93,7 +93,7 @@
   line: 100
   column: 1
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: typeText
@@ -101,7 +101,7 @@
     -
     - "impl<A, B> Plus<Inc<A>> for Inc<B> {type Output = Inc<Inc<<A as Plus<B>>::Output>>;}"
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: goto
@@ -114,7 +114,7 @@
   line: 100
   column: 1
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: openFile
@@ -125,7 +125,7 @@
   text:
     - 'typenum = "1.16"'
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: openFile
@@ -149,7 +149,7 @@
     - "  //"
     - "}"
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: goto
@@ -162,7 +162,7 @@
   text:
     - "let hover_me = <A as Add<B>>::Output::default();"
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: goto
@@ -177,7 +177,7 @@
   text:
     - "6"
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: goto
@@ -192,7 +192,7 @@
     - "    type Output = <<A as Add<B>>::Output as Mul<C>>::Output;"
     - "}"
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: goto
@@ -202,7 +202,7 @@
   text:
     - " where A: Add<B>, <A as Add<B>>::Output: Mul<C>"
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: goto
@@ -212,11 +212,11 @@
 - type: typeText
   text:
     -
-    - // pub struct B0;
-    - // pub struct B1;
+    - // `UInt<Msbs, Lsb>`, `UTerm`, `B0` and `B1`
+    - //  are defined by `typenum`
     -
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: typeText
@@ -229,7 +229,7 @@
     - "    type Xor<B: Boolean>: Boolean;"
     - "}"
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 - type: typeText
   text:
@@ -242,7 +242,7 @@
     - "}"
     -
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: typeText
@@ -255,7 +255,7 @@
     - "    type Xor<B: Boolean> = B::Not;"
     - "}"
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: typeText
@@ -265,6 +265,9 @@
     - "    type Lsb: Boolean;"
     - "    type ShrOne: Unsigned;"
     - "}"
+- type: wait
+  delay: manual
+  save: true
 
 - type: goto
   line: 59
@@ -296,7 +299,7 @@
     - "    type HalfAdderSum<B: Boolean, C: Boolean> = <B::Xor<C> as Boolean>::Not;"
     - "    type HalfAdderCarry<B: Boolean, C: Boolean> = B::Or<C>;"
 - type: wait
-  delay: 0
+  delay: manual
   save: true
 
 - type: goto
@@ -327,6 +330,9 @@
     - "    type AddWithCarry<Rhs: Unsigned, Carry: Boolean>: Unsigned;"
     - "    type Add<Rhs: Unsigned>: Unsigned;"
     - "    type Mul<Rhs: Unsigned>: Unsigned;"
+- type: wait
+  delay: manual
+  save: true
 
 - type: goto
   line: 98
@@ -340,6 +346,9 @@
     - "    type AddWithCarry<Rhs: Unsigned, Carry: Boolean> = Carry::Ternary<Rhs::Inc, Rhs>;"
     - "    type Add<Rhs: Unsigned> = Rhs;"
     - "    type Mul<Rhs: Unsigned> = Self;"
+- type: wait
+  delay: manual
+  save: true
 
 - type: goto
   line: 109
@@ -357,5 +366,12 @@
     - "    type Add<Rhs: Unsigned> = Self::AddWithCarry<Rhs, B0>;"
     - "    type Mul<Rhs: Unsigned> = <<Lsb::Ternary<Rhs, UTerm> as Unsigned>::Add<UInt<Msbs::Mul<Rhs>, B0>> as Unsigned>::RmExtraBits;"
 - type: wait
-  delay: 0
+  delay: manual
   save: true
+
+- type: goto
+  line: 120
+  column: 1
+- type: select
+  line: 200
+  column: 1
