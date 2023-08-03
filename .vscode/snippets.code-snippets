@@ -62,6 +62,6 @@
 	"Check Type": {
 		"scope": "rust",
 		"prefix": "checktype",
-		"body": "const ${2:TEST}: $1 = ();"
+		"body": "const ${2:TEST}: $1 = Zero;"
 	}
 }

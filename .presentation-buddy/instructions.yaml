@@ -9,7 +9,7 @@
     -
     - pub struct Zero;
 - type: wait
-  delay: manual
+  delay: 0
   save: true
 
 - type: typeText
@@ -17,7 +17,7 @@
     - pub struct Inc<N>(N);
     -
 - type: wait
-  delay: manual
+  delay: 0
   save: true
 
 - type: typeText
@@ -25,7 +25,7 @@
     -
     - pub type One = Inc<Zero>;
 - type: wait
-  delay: manual
+  delay: 0
   save: true
 
 - type: typeText
@@ -33,24 +33,24 @@
     - pub type Two = Inc<One>;
     -
 - type: wait
-  delay: manual
+  delay: 0
   save: true
 
 - type: typeText
   delay: 2
   text:
     -
-    - pub trait Add<T> {type Output;}
+    - pub trait Plus<T> {type Output;}
 - type: wait
-  delay: manual
+  delay: 0
   save: true
 
 - type: typeText
   text:
     -
-    - "impl Add<Zero> for Zero {type Output = ();}"
-    - "impl<T> Add<Zero> for Inc<T> {type Output = ();}"
-    - "impl<T> Add<Inc<T>> for Zero {type Output = ();}"
+    - "impl Plus<Zero> for Zero {type Output = ();}"
+    - "impl<T> Plus<Zero> for Inc<T> {type Output = ();}"
+    - "impl<T> Plus<Inc<T>> for Zero {type Output = ();}"
 - type: wait
   delay: 10
   save: true
@@ -61,7 +61,7 @@
   line: 15
   column: 21
 - type: wait
-  delay: manual
+  delay: 0
   save: true
 
 - type: typeText
@@ -74,7 +74,7 @@
   line: 18
   column: 21
 - type: wait
-  delay: manual
+  delay: 0
   save: true
 
 - type: typeText
@@ -93,28 +93,28 @@
   line: 100
   column: 1
 - type: wait
-  delay: manual
+  delay: 0
   save: true
 
 - type: typeText
   text:
     -
-    - "impl<A, B> Add<Inc<A>> for Inc<B> {type Output = Inc<Inc<<A as Add<B>>::Output>>;}"
+    - "impl<A, B> Plus<Inc<A>> for Inc<B> {type Output = Inc<Inc<<A as Plus<B>>::Output>>;}"
 - type: wait
-  delay: manual
+  delay: 0
   save: true
 
 - type: goto
   line: 24
-  column: 34
+  column: 35
 - type: typeText
   text:
-    - " where A: Add<B>"
+    - " where A: Plus<B>"
 - type: goto
   line: 100
   column: 1
 - type: wait
-  delay: manual
+  delay: 0
   save: true
 
 - type: openFile
@@ -125,14 +125,22 @@
   text:
     - 'typenum = "1.16"'
 - type: wait
-  delay: manual
+  delay: 0
   save: true
 
 - type: openFile
   path: using-typenum/src/lib.rs
+- type: goto
+  line: 30
+  column: 1
+- type: select
+  line: 100
+  column: 1
 - type: typeText
   text:
+    -
     - use typenum::*;
+    - use std::ops::{Mul, Add};
     - ""
     - type A = U2;
     - type B = U4;
@@ -141,27 +149,27 @@
     - "  //"
     - "}"
 - type: wait
-  delay: manual
+  delay: 0
   save: true
 
 - type: goto
-  line: 36
+  line: 38
   column: 5
 - type: select
-  line: 36
+  line: 38
   column: 7
 - type: typeText
   text:
-    - "let hover_me = <A as std::ops::Add<B>>::Output::default();"
+    - "let hover_me = <A as Add<B>>::Output::default();"
 - type: wait
-  delay: manual
+  delay: 0
   save: true
 
 - type: goto
-  line: 33
+  line: 35
   column: 11
 - type: select
-  line: 33
+  line: 35
   column: 12
 - type: command
   command: "deleteLeft"
@@ -169,7 +177,7 @@
   text:
     - "6"
 - type: wait
-  delay: manual
+  delay: 0
   save: true
 
 - type: goto
@@ -179,16 +187,49 @@
 - type: typeText
   text:
     -
-    - pub struct B0;
-    - pub struct B1;
-    -
-    - pub trait Boolean {
-    - "    type Not;"
-    - "    type And<B: Boolean>: Boolean;"
-    - "    type Or<B: Boolean>: Boolean;"
+    - pub trait WeirdOp<B, C> {type Output;}
+    - impl<A, B, C> WeirdOp<B, C> for A {
+    - "    type Output = <<A as Add<B>>::Output as Mul<C>>::Output;"
     - "}"
 - type: wait
-  delay: manual
+  delay: 0
+  save: true
+
+- type: goto
+  line: 44
+  column: 34
+- type: typeText
+  text:
+    - " where A: Add<B>, <A as Add<B>>::Output: Mul<C>"
+- type: wait
+  delay: 0
+  save: true
+
+- type: goto
+  line: 100
+  column: 1
+
+- type: typeText
+  text:
+    -
+    - // pub struct B0;
+    - // pub struct B1;
+    -
+- type: wait
+  delay: 0
+  save: true
+
+- type: typeText
+  text:
+    -
+    - pub trait Boolean {
+    - "    type Not: Boolean;"
+    - "    type And<B: Boolean>: Boolean;"
+    - "    type Or<B: Boolean>: Boolean;"
+    - "    type Xor<B: Boolean>: Boolean;"
+    - "}"
+- type: wait
+  delay: 0
   save: true
 - type: typeText
   text:
@@ -197,10 +238,124 @@
     - "    type Not = B1;"
     - "    type And<B: Boolean> = B0;"
     - "    type Or<B: Boolean> = B;"
+    - "    type Xor<B: Boolean> = B;"
     - "}"
+    -
+- type: wait
+  delay: 0
+  save: true
+
+- type: typeText
+  text:
     -
     - impl Boolean for B1 {
     - "    type Not = B0;"
     - "    type And<B: Boolean> = B;"
     - "    type Or<B: Boolean> = B1;"
+    - "    type Xor<B: Boolean> = B::Not;"
     - "}"
+- type: wait
+  delay: 0
+  save: true
+
+- type: typeText
+  text:
+    -
+    - pub trait Unsigned {
+    - "    type Lsb: Boolean;"
+    - "    type ShrOne: Unsigned;"
+    - "}"
+
+- type: goto
+  line: 59
+  column: 35
+- type: typeText
+  text:
+    -
+    - "    type Ternary<IfTrue: Unsigned, IfFalse: Unsigned>: Unsigned;"
+    - "    type HalfAdderSum<B: Boolean, C: Boolean>: Boolean;"
+    - "    type HalfAdderCarry<B: Boolean, C: Boolean>: Boolean;"
+
+- type: goto
+  line: 69
+  column: 30
+- type: typeText
+  text:
+    -
+    - "    type Ternary<IfTrue: Unsigned, IfFalse: Unsigned> = IfFalse;"
+    - "    type HalfAdderSum<B: Boolean, C: Boolean> = B::Xor<C>;"
+    - "    type HalfAdderCarry<B: Boolean, C: Boolean> = B::And<C>;"
+
+- type: goto
+  line: 79
+  column: 35
+- type: typeText
+  text:
+    -
+    - "    type Ternary<IfTrue: Unsigned, IfFalse: Unsigned> = IfTrue;"
+    - "    type HalfAdderSum<B: Boolean, C: Boolean> = <B::Xor<C> as Boolean>::Not;"
+    - "    type HalfAdderCarry<B: Boolean, C: Boolean> = B::Or<C>;"
+- type: wait
+  delay: 0
+  save: true
+
+- type: goto
+  line: 100
+  column: 1
+- type: typeText
+  text:
+    -
+    - impl Unsigned for UTerm {
+    - "    type Lsb = B0;"
+    - "    type ShrOne = Self;"
+    - "}"
+    -
+    - "impl<Lsb: Boolean, Msbs: Unsigned> Unsigned for UInt<Msbs, Lsb> {"
+    - "    type Lsb = Lsb;"
+    - "    type ShrOne = Msbs;"
+    - "}"
+
+- type: goto
+  line: 87
+  column: 27
+- type: typeText
+  text:
+    -
+    - "    type IsZero: Boolean;"
+    - "    type RmExtraBits: Unsigned;"
+    - "    type Inc: Unsigned;"
+    - "    type AddWithCarry<Rhs: Unsigned, Carry: Boolean>: Unsigned;"
+    - "    type Add<Rhs: Unsigned>: Unsigned;"
+    - "    type Mul<Rhs: Unsigned>: Unsigned;"
+
+- type: goto
+  line: 98
+  column: 24
+- type: typeText
+  text:
+    -
+    - "    type IsZero = B1;"
+    - "    type RmExtraBits = Self;"
+    - "    type Inc = UInt<Self, B1>;"
+    - "    type AddWithCarry<Rhs: Unsigned, Carry: Boolean> = Carry::Ternary<Rhs::Inc, Rhs>;"
+    - "    type Add<Rhs: Unsigned> = Rhs;"
+    - "    type Mul<Rhs: Unsigned> = Self;"
+
+- type: goto
+  line: 109
+  column: 24
+- type: typeText
+  text:
+    -
+    - "    type IsZero = <Lsb::Not as Boolean>::And<Msbs::IsZero>;"
+    - "    type RmExtraBits = <Self::IsZero as Boolean>::Ternary<UTerm, UInt<Msbs::RmExtraBits, Lsb>>;"
+    - "    type Inc = Lsb::Ternary<UInt<Msbs::Inc, B0>, UInt<Msbs, B1>>;"
+    - "    type AddWithCarry<Rhs: Unsigned, Carry: Boolean> = UInt<"
+    - "        Msbs::AddWithCarry<Rhs::ShrOne, Lsb::HalfAdderCarry<Rhs::Lsb, Carry>>,"
+    - "        Lsb::HalfAdderSum<Rhs::Lsb, Carry>,"
+    - "    >;"
+    - "    type Add<Rhs: Unsigned> = Self::AddWithCarry<Rhs, B0>;"
+    - "    type Mul<Rhs: Unsigned> = <<Lsb::Ternary<Rhs, UTerm> as Unsigned>::Add<UInt<Msbs::Mul<Rhs>, B0>> as Unsigned>::RmExtraBits;"
+- type: wait
+  delay: 0
+  save: true
