@@ -1,6 +1,9 @@
 - type: openFile
   path: using-typenum/src/lib.rs
 - type: goto
+  line: 1
+  column: 1
+- type: select
   line: 100
   column: 1
 
@@ -55,10 +58,10 @@
   delay: 10
   save: true
 - type: goto
-  line: 15
+  line: 12
   column: 19
 - type: select
-  line: 15
+  line: 12
   column: 21
 - type: wait
   delay: manual
@@ -68,10 +71,10 @@
   text:
     - "Zero"
 - type: goto
-  line: 18
+  line: 15
   column: 19
 - type: select
-  line: 18
+  line: 15
   column: 21
 - type: wait
   delay: manual
@@ -81,10 +84,10 @@
   text:
     - Inc<T>
 - type: goto
-  line: 21
+  line: 18
   column: 19
 - type: select
-  line: 21
+  line: 18
   column: 21
 - type: typeText
   text:
