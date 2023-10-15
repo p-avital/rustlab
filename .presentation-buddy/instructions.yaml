@@ -108,7 +108,7 @@
   save: true
 
 - type: goto
-  line: 24
+  line: 21
   column: 35
 - type: typeText
   text:
@@ -119,6 +119,29 @@
 - type: wait
   delay: manual
   save: true
+
+- type: typeText
+  text:
+    -
+    - "const FOUR: <Two as Plus<Two>>::Output = ();"
+- type: wait
+  delay: manual
+  save: true
+- type: goto
+  line: 28
+  column: 43
+- type: command
+  command: "editor.action.showHover"
+- type: wait
+  delay: manual
+- type: goto
+  line: 27
+  column: 1
+- type: select
+  line: 29
+  column: 1
+- type: command
+  command: deleteLeft
 
 - type: openFile
   path: using-typenum/Cargo.toml
@@ -156,23 +179,31 @@
   save: true
 
 - type: goto
-  line: 38
+  line: 35
   column: 5
 - type: select
-  line: 38
+  line: 35
   column: 7
 - type: typeText
   text:
     - "let hover_me = <A as Add<B>>::Output::default();"
 - type: wait
-  delay: manual
+  delay: 10
   save: true
 
 - type: goto
   line: 35
+  column: 15
+- type: command
+  command: "editor.action.showHover"
+- type: wait
+  delay: manual
+
+- type: goto
+  line: 32
   column: 11
 - type: select
-  line: 35
+  line: 32
   column: 12
 - type: command
   command: "deleteLeft"
@@ -180,8 +211,15 @@
   text:
     - "6"
 - type: wait
-  delay: manual
+  delay: 10
   save: true
+- type: goto
+  line: 35
+  column: 15
+- type: command
+  command: "editor.action.showHover"
+- type: wait
+  delay: manual
 
 - type: goto
   line: 100
@@ -199,7 +237,7 @@
   save: true
 
 - type: goto
-  line: 44
+  line: 41
   column: 34
 - type: typeText
   text:
