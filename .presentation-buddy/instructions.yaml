@@ -4,12 +4,12 @@
   line: 1
   column: 1
 - type: select
-  line: 100
+  line: 300
   column: 1
 
 - type: typeText
   text:
-    -
+    - "#![allow(dead_code, unused_variables)]"
     - pub struct Zero;
 - type: wait
   delay: manual
@@ -34,7 +34,7 @@
 - type: typeText
   text:
     - pub type Two = Inc<One>;
-    -
+    - pub type Six = Inc<Inc<Inc<Inc<Inc<Inc<Zero>>>>>>;
 - type: wait
   delay: manual
   save: true
@@ -58,10 +58,10 @@
   delay: 10
   save: true
 - type: goto
-  line: 12
+  line: 14
   column: 19
 - type: select
-  line: 12
+  line: 14
   column: 21
 - type: wait
   delay: manual
@@ -71,10 +71,10 @@
   text:
     - "Zero"
 - type: goto
-  line: 15
+  line: 17
   column: 19
 - type: select
-  line: 15
+  line: 17
   column: 21
 - type: wait
   delay: manual
@@ -84,10 +84,10 @@
   text:
     - Inc<T>
 - type: goto
-  line: 18
+  line: 20
   column: 19
 - type: select
-  line: 18
+  line: 20
   column: 21
 - type: typeText
   text:
@@ -108,7 +108,7 @@
   save: true
 
 - type: goto
-  line: 21
+  line: 23
   column: 35
 - type: typeText
   text:
@@ -128,17 +128,17 @@
   delay: manual
   save: true
 - type: goto
-  line: 28
+  line: 30
   column: 43
 - type: command
   command: "editor.action.showHover"
 - type: wait
   delay: manual
 - type: goto
-  line: 27
+  line: 29
   column: 1
 - type: select
-  line: 29
+  line: 31
   column: 1
 - type: command
   command: deleteLeft
@@ -146,9 +146,16 @@
 - type: openFile
   path: using-typenum/Cargo.toml
 - type: goto
-  line: 10
+  line: 9
+  column: 1
+- type: select
+  line: 31
+  column: 1
+- type: command
+  command: deleteLeft
 - type: typeText
   text:
+    -
     - 'typenum = "1.16"'
 - type: wait
   delay: manual
@@ -157,7 +164,7 @@
 - type: openFile
   path: using-typenum/src/lib.rs
 - type: goto
-  line: 30
+  line: 32
   column: 1
 - type: select
   line: 100
@@ -179,10 +186,10 @@
   save: true
 
 - type: goto
-  line: 35
+  line: 37
   column: 5
 - type: select
-  line: 35
+  line: 37
   column: 7
 - type: typeText
   text:
@@ -192,7 +199,7 @@
   save: true
 
 - type: goto
-  line: 35
+  line: 37
   column: 15
 - type: command
   command: "editor.action.showHover"
@@ -200,10 +207,10 @@
   delay: manual
 
 - type: goto
-  line: 32
+  line: 34
   column: 11
 - type: select
-  line: 32
+  line: 34
   column: 12
 - type: command
   command: "deleteLeft"
@@ -214,7 +221,7 @@
   delay: 10
   save: true
 - type: goto
-  line: 35
+  line: 37
   column: 15
 - type: command
   command: "editor.action.showHover"
@@ -237,11 +244,20 @@
   save: true
 
 - type: goto
-  line: 41
+  line: 43
   column: 34
 - type: typeText
   text:
-    - " where A: Add<B>, <A as Add<B>>::Output: Mul<C>"
+    - " where A: Add<B>,"
+- type: wait
+  delay: manual
+  save: true
+- type: goto
+  line: 45
+  column: 15
+- type: typeText
+  text:
+    - "<A as Add<B>>::Output: Mul<C>"
 - type: wait
   delay: manual
   save: true
@@ -311,7 +327,7 @@
   save: true
 
 - type: goto
-  line: 59
+  line: 54
   column: 35
 - type: typeText
   text:
@@ -321,7 +337,7 @@
     - "    type HalfAdderCarry<B: Boolean, C: Boolean>: Boolean;"
 
 - type: goto
-  line: 69
+  line: 64
   column: 30
 - type: typeText
   text:
@@ -331,7 +347,7 @@
     - "    type HalfAdderCarry<B: Boolean, C: Boolean> = B::And<C>;"
 
 - type: goto
-  line: 79
+  line: 74
   column: 35
 - type: typeText
   text:
@@ -360,7 +376,7 @@
     - "}"
 
 - type: goto
-  line: 87
+  line: 84
   column: 27
 - type: typeText
   text:
@@ -376,8 +392,8 @@
   save: true
 
 - type: goto
-  line: 98
-  column: 24
+  line: 95
+  column: 26
 - type: typeText
   text:
     -
@@ -392,8 +408,8 @@
   save: true
 
 - type: goto
-  line: 109
-  column: 24
+  line: 106
+  column: 66
 - type: typeText
   text:
     -
@@ -411,8 +427,27 @@
   save: true
 
 - type: goto
-  line: 120
+  line: 119
+  column: 1
+
+- type: typeText
+  text:
+    -
+    - fn test() {
+    - "  //"
+    - "}"
+- type: wait
+  delay: manual
+  save: true
+
+- type: goto
+  line: 119
   column: 1
 - type: select
   line: 200
   column: 1
+- type: command
+  command: "deleteLeft"
+- type: wait
+  delay: manual
+  save: true
