@@ -378,15 +378,24 @@
 - type: goto
   line: 84
   column: 27
+- type: wait
+  delay: manual
+  save: true
 - type: typeText
   text:
     -
-    - "    type IsZero: Boolean;"
-    - "    type RmExtraBits: Unsigned;"
-    - "    type Inc: Unsigned;"
-    - "    type AddWithCarry<Rhs: Unsigned, Carry: Boolean>: Unsigned;"
     - "    type Add<Rhs: Unsigned>: Unsigned;"
     - "    type Mul<Rhs: Unsigned>: Unsigned;"
+- type: wait
+  delay: manual
+  save: true
+- type: typeText
+  text:
+    -
+    - "    type Inc: Unsigned;"
+    - "    type AddWithCarry<Rhs: Unsigned, Carry: Boolean>: Unsigned;"
+    - "    type IsZero: Boolean;"
+    - "    type RmExtraBits: Unsigned;"
 - type: wait
   delay: manual
   save: true
@@ -399,8 +408,26 @@
     -
     - "    type IsZero = B1;"
     - "    type RmExtraBits = Self;"
+- type: wait
+  delay: manual
+  save: true
+- type: typeText
+  text:
+    -
     - "    type Inc = UInt<Self, B1>;"
+- type: wait
+  delay: manual
+  save: true
+- type: typeText
+  text:
+    -
     - "    type AddWithCarry<Rhs: Unsigned, Carry: Boolean> = Carry::Ternary<Rhs::Inc, Rhs>;"
+- type: wait
+  delay: manual
+  save: true
+- type: typeText
+  text:
+    -
     - "    type Add<Rhs: Unsigned> = Rhs;"
     - "    type Mul<Rhs: Unsigned> = Self;"
 - type: wait
@@ -414,13 +441,37 @@
   text:
     -
     - "    type IsZero = <Lsb::Not as Boolean>::And<Msbs::IsZero>;"
+- type: wait
+  delay: manual
+  save: true
+- type: typeText
+  text:
+    -
     - "    type RmExtraBits = <Self::IsZero as Boolean>::Ternary<UTerm, UInt<Msbs::RmExtraBits, Lsb>>;"
+- type: wait
+  delay: manual
+  save: true
+- type: typeText
+  text:
+    -
     - "    type Inc = Lsb::Ternary<UInt<Msbs::Inc, B0>, UInt<Msbs, B1>>;"
+- type: wait
+  delay: manual
+  save: true
+- type: typeText
+  text:
+    -
+    - "    type Add<Rhs: Unsigned> = Self::AddWithCarry<Rhs, B0>;"
     - "    type AddWithCarry<Rhs: Unsigned, Carry: Boolean> = UInt<"
     - "        Msbs::AddWithCarry<Rhs::ShrOne, Lsb::HalfAdderCarry<Rhs::Lsb, Carry>>,"
     - "        Lsb::HalfAdderSum<Rhs::Lsb, Carry>,"
     - "    >;"
-    - "    type Add<Rhs: Unsigned> = Self::AddWithCarry<Rhs, B0>;"
+- type: wait
+  delay: manual
+  save: true
+- type: typeText
+  text:
+    -
     - "    type Mul<Rhs: Unsigned> = <<Lsb::Ternary<Rhs, UTerm> as Unsigned>::Add<UInt<Msbs::Mul<Rhs>, B0>> as Unsigned>::RmExtraBits;"
 - type: wait
   delay: manual
@@ -429,25 +480,3 @@
 - type: goto
   line: 119
   column: 1
-
-- type: typeText
-  text:
-    -
-    - fn test() {
-    - "  //"
-    - "}"
-- type: wait
-  delay: manual
-  save: true
-
-- type: goto
-  line: 119
-  column: 1
-- type: select
-  line: 200
-  column: 1
-- type: command
-  command: "deleteLeft"
-- type: wait
-  delay: manual
-  save: true
