@@ -480,3 +480,14 @@
 - type: goto
   line: 119
   column: 1
+
+- type: typeText
+  text:
+    -
+    -
+    - "pub trait WeirdOp2<B, C> {"
+    - "    type Output: Unsigned;"
+    - "}"
+    - "impl<A: Unsigned, B: Unsigned, C: Unsigned> WeirdOp2<B, C> for A {"
+    - "    type Output = C::Mul<A::Add<B>>;"
+    - "}"
