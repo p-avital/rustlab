@@ -491,3 +491,7 @@
     - "impl<A: Unsigned, B: Unsigned, C: Unsigned> WeirdOp2<B, C> for A {"
     - "    type Output = C::Mul<A::Add<B>>;"
     - "}"
+
+- type: wait
+  delay: manual
+  save: true
