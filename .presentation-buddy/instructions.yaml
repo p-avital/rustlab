@@ -52,10 +52,8 @@
   text:
     -
     - "impl Plus<Zero> for Zero {type Output = ();}"
-    - "impl<T> Plus<Zero> for Inc<T> {type Output = ();}"
-    - "impl<T> Plus<Inc<T>> for Zero {type Output = ();}"
 - type: wait
-  delay: 10
+  delay: manual
   save: true
 - type: goto
   line: 14
@@ -63,13 +61,23 @@
 - type: select
   line: 14
   column: 21
+- type: typeText
+  text:
+    - "Zero"
+- type: goto
+  line: 20
+  column: 1
 - type: wait
   delay: manual
   save: true
 
 - type: typeText
   text:
-    - "Zero"
+    - "impl<T> Plus<Zero> for Inc<T> {type Output = ();}"
+    - "impl<T> Plus<Inc<T>> for Zero {type Output = ();}"
+- type: wait
+  delay: 10
+  save: true
 - type: goto
   line: 17
   column: 19
@@ -333,8 +341,8 @@
   text:
     -
     - "    type Ternary<IfTrue: Unsigned, IfFalse: Unsigned>: Unsigned;"
-    - "    type HalfAdderSum<B: Boolean, C: Boolean>: Boolean;"
-    - "    type HalfAdderCarry<B: Boolean, C: Boolean>: Boolean;"
+    - "    type FullAdderSum<B: Boolean, C: Boolean>: Boolean;"
+    - "    type FullAdderCarry<B: Boolean, C: Boolean>: Boolean;"
 
 - type: goto
   line: 64
@@ -343,8 +351,8 @@
   text:
     -
     - "    type Ternary<IfTrue: Unsigned, IfFalse: Unsigned> = IfFalse;"
-    - "    type HalfAdderSum<B: Boolean, C: Boolean> = B::Xor<C>;"
-    - "    type HalfAdderCarry<B: Boolean, C: Boolean> = B::And<C>;"
+    - "    type FullAdderSum<B: Boolean, C: Boolean> = B::Xor<C>;"
+    - "    type FullAdderCarry<B: Boolean, C: Boolean> = B::And<C>;"
 
 - type: goto
   line: 74
@@ -353,8 +361,8 @@
   text:
     -
     - "    type Ternary<IfTrue: Unsigned, IfFalse: Unsigned> = IfTrue;"
-    - "    type HalfAdderSum<B: Boolean, C: Boolean> = <B::Xor<C> as Boolean>::Not;"
-    - "    type HalfAdderCarry<B: Boolean, C: Boolean> = B::Or<C>;"
+    - "    type FullAdderSum<B: Boolean, C: Boolean> = <B::Xor<C> as Boolean>::Not;"
+    - "    type FullAdderCarry<B: Boolean, C: Boolean> = B::Or<C>;"
 - type: wait
   delay: manual
   save: true
@@ -463,8 +471,8 @@
     -
     - "    type Add<Rhs: Unsigned> = Self::AddWithCarry<Rhs, B0>;"
     - "    type AddWithCarry<Rhs: Unsigned, Carry: Boolean> = UInt<"
-    - "        Msbs::AddWithCarry<Rhs::ShrOne, Lsb::HalfAdderCarry<Rhs::Lsb, Carry>>,"
-    - "        Lsb::HalfAdderSum<Rhs::Lsb, Carry>,"
+    - "        Msbs::AddWithCarry<Rhs::ShrOne, Lsb::FullAdderCarry<Rhs::Lsb, Carry>>,"
+    - "        Lsb::FullAdderSum<Rhs::Lsb, Carry>,"
     - "    >;"
 - type: wait
   delay: manual
